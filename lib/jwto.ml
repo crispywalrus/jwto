@@ -73,9 +73,10 @@ let payload_to_json payload =
 let payload_to_string = payload_to_json >> Yojson.Basic.to_string
 
 let b64_url_encode str =
-  B64.encode ~pad:false ~alphabet:B64.uri_safe_alphabet str
+  Base64.encode_exn ~pad:false ~alphabet:Base64.uri_safe_alphabet str
 
-let b64_url_decode str = B64.decode ~alphabet:B64.uri_safe_alphabet str
+let b64_url_decode str =
+  Base64.decode_exn ~alphabet:Base64.uri_safe_alphabet str
 
 let encode_header (header : header) : string =
   header |> header_to_string |> b64_url_encode
